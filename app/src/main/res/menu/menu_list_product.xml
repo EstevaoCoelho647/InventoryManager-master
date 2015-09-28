@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity_ListProduct">
+
+    <item
+        android:id="@+id/menu_add"
+        android:icon="@mipmap/ic_add"
+        android:title="@string/lbl_add"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@mipmap/ic_refresh"
+        android:title="Atualizar"
+        app:showAsAction="always" />
+</menu>

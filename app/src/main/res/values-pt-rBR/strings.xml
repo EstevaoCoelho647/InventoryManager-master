@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lbl_add">Add Product</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
+    <string name="lbl_edit">Editar</string>
+    <string name="lbl_delete">Deletar</string>
+    <string name="lbl_confirm">Confirmar</string>
+    <string name="msg_confirm_delete">Tem certeza que quer deleear esse item?</string>
+    <string name="lbl_yes">Sim</string>
+    <string name="mgs_delete">Produto apagado</string>
+    <string name="lbl_no">Não</string>
+    <string name="bt_add_photo">Adicionar Foto</string>
+    <string name="msg_loading_message">Loading from Database</string>
+</resources>

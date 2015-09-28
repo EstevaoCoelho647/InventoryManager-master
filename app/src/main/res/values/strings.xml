@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">InventoryManager</string>
+    <string name="lbl_add">Add Product</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="lbl_edit">Edit</string>
+    <string name="lbl_delete">Delete</string>
+    <string name="mgs_confirm">Confirm</string>
+    <string name="msg_confirm_delete">Wanto to delete this item?</string>
+    <string name="lbl_yes">Yes</string>
+    <string name="mgs_delete">Delete successful</string>
+    <string name="lbl_no">No</string>
+    <string name="bt_add_photo">Add Photo</string>
+    <string name="msg_loading_message">Loading from Database</string>
+    <string name="msg_loaded_product">oi</string>
+</resources>

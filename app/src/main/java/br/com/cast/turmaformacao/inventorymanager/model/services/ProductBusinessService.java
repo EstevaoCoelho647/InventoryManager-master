@@ -32,5 +32,42 @@ public class ProductBusinessService {
     public static void synchronize(Product product) {
         ProductRepository.save(product);
     }
+
+    public static void sincronized(){
+
+        List<Product> listaWeb = ProductRepository.getAll();
+
+        for(Product pWeb : listaWeb){
+            Long id = ProductBusinessService.getIdByWebId(pWeb.getWebId());
+            if(id == null){
+                save(pWeb);
+            }else{
+                pWeb.setId(id);
+                Product produtoLocal = ProductBusinessService.getById(id);
+                if(checkLastModified(produtoLocal,pWeb)){
+                    save(pWeb);
+                }
+            }
+        }
+    }
+    private static boolean checkLastModified(Product local, Product web){
+
+        if(web.getDate() > local.getDate()){
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public static Product getById(Long id){
+        return ProductRepository.getById(id);
+    }
+
+    public static Long getIdByWebId(Long web_id) {
+
+        return ProductRepository.getIdByWebId(web_id);
+    }
+
 }
 

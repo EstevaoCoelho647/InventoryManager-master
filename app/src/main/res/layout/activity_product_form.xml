@@ -25,21 +25,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:hint="Quantidade" />
+        android:hint="Quantidade"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/editTextQtdeMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:hint="Quantidade Minima" />
+        android:hint="Quantidade Minima"
+        android:inputType="number"/>
     </LinearLayout>
 
     <EditText
         android:id="@+id/editTextValorUnit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Valor Unitário" />
+        android:hint="Valor Unitário"
+        android:inputType="number"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -47,6 +50,7 @@
         android:text="@string/bt_add_photo"
         android:id="@+id/buttonImageTake"
         android:layout_gravity="right" />
+
     <ImageView
         android:id="@+id/imageViewImage"
         android:layout_width="111dp"

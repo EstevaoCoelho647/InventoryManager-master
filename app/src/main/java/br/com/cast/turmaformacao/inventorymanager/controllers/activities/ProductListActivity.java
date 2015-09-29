@@ -19,13 +19,14 @@ import java.util.concurrent.ExecutionException;
 
 import br.com.cast.turmaformacao.inventorymanager.R;
 import br.com.cast.turmaformacao.inventorymanager.controllers.adapters.ProductListAdapter;
+import br.com.cast.turmaformacao.inventorymanager.controllers.sync.TaskSyncInterface;
 import br.com.cast.turmaformacao.inventorymanager.model.entities.Product;
 import br.com.cast.turmaformacao.inventorymanager.model.services.ProductBusinessService;
-import br.com.cast.turmaformacao.inventorymanager.model.util.GetDBProducts;
-import br.com.cast.turmaformacao.inventorymanager.model.util.GetServerProducts;
+import br.com.cast.turmaformacao.inventorymanager.controllers.sync.GetDBProducts;
+import br.com.cast.turmaformacao.inventorymanager.controllers.sync.GetServerProducts;
 
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends AppCompatActivity{
 
     private ListView listViewProductList;
     private Product selectedProduct;
@@ -103,16 +104,16 @@ public class ProductListActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_delete:
-                onMenuDeleteClick();
-                break;
-           case R.id.menu_edit:
-                onMenuEditClick();
-        }
-        return super.onContextItemSelected(item);
+            @Override
+        public boolean onContextItemSelected(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.menu_delete:
+                    onMenuDeleteClick();
+                    break;
+                case R.id.menu_edit:
+                    onMenuEditClick();
+            }
+            return super.onContextItemSelected(item);
 
     }
 
@@ -174,6 +175,7 @@ public class ProductListActivity extends AppCompatActivity {
         ProductListAdapter adapter = (ProductListAdapter) listViewProductList.getAdapter();
         adapter.notifyDataSetChanged();
     }
+
 
 
 }

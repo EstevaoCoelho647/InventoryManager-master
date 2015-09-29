@@ -14,15 +14,6 @@ import java.util.List;
 public class Product implements Parcelable {
     @JsonIgnore
     private Long id;
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     @JsonProperty("image")
     private String image;
     @JsonProperty("name")
@@ -189,7 +180,7 @@ public class Product implements Parcelable {
         dest.writeString(this.descricao == null ? "" : this.descricao);
         dest.writeValue(this.quantidade == null ? -1 : this.quantidade);
         dest.writeValue(this.quantidadeMin == null ? -1 : this.quantidadeMin);
-        dest.writeDouble(this.valorUnitario == null ? -1 : this.valorUnitario);
+        dest.writeValue(this.valorUnitario == null ? -1 : this.valorUnitario);
         dest.writeValue(this.webId == null ? -1 : this.webId);
         dest.writeValue(this.date == null ? -1 : this.date);
     }

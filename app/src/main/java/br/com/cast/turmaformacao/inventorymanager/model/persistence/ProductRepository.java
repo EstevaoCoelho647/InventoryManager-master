@@ -52,4 +52,36 @@ public class ProductRepository {
         db.close();
         databaseHelper.close();
     }
+
+    public static Long getIdByWebId(Long web_id) {
+
+        DatabaseHelper dataBaseHelper = DatabaseHelper.getInstance();
+        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+
+        String where = ProductContract.WEBID + " = ? ";
+        String[] params = {web_id.toString()};
+
+        Cursor cursor = db.query(ProductContract.TABLE, ProductContract.COLUNS, where, params, null, null, null);
+
+        Product p = ProductContract.getProduct(cursor);
+
+        return p == null ? null : p.getId();
+    }
+
+    public static Product getById(Long id) {
+
+        DatabaseHelper dataBaseHelper = DatabaseHelper.getInstance();
+        SQLiteDatabase db = dataBaseHelper.getReadableDatabase();
+
+        String where = ProductContract.ID + " = ? ";
+        String[] params = {id.toString()};
+
+        Cursor cursor = db.query(ProductContract.TABLE, ProductContract.COLUNS, where, params, null, null, null);
+
+        Product product = ProductContract.getProduct(cursor);
+
+        return product;
+
+
+    }
 }

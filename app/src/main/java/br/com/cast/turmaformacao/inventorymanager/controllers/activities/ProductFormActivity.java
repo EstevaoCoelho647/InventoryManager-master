@@ -2,9 +2,13 @@ package br.com.cast.turmaformacao.inventorymanager.controllers.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,15 +17,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import br.com.cast.turmaformacao.inventorymanager.R;
 import br.com.cast.turmaformacao.inventorymanager.model.entities.Product;
 import br.com.cast.turmaformacao.inventorymanager.model.services.ProductBusinessService;
 import br.com.cast.turmaformacao.inventorymanager.model.util.FormHelper;
-import br.com.cast.turmaformacao.inventorymanager.model.util.GetDBProducts;
-import br.com.cast.turmaformacao.inventorymanager.model.util.GetServerProducts;
-import br.com.cast.turmaformacao.inventorymanager.model.util.UpServerProducts;
+import br.com.cast.turmaformacao.inventorymanager.controllers.sync.GetDBProducts;
+import br.com.cast.turmaformacao.inventorymanager.controllers.sync.UpServerProducts;
 
 /**
  * Created by Administrador on 25/09/2015.
@@ -64,6 +68,7 @@ public class ProductFormActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
             }
         });
     }
@@ -72,8 +77,28 @@ public class ProductFormActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             bindEditImageView();
-            imageViewImage.setImageBitmap(photo);
+            String photoS  = bitMapToString(photo);
+            imageViewImage.setImageBitmap(StringToBitMap(photoS));
+
         }
+    }
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+
+    private String  bitMapToString(Bitmap photo) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
     }
 
 
@@ -134,7 +159,10 @@ public class ProductFormActivity extends AppCompatActivity {
         product.setQuantidade(Long.parseLong(editTextQtde.getText().toString()));
         product.setQuantidadeMin(Long.parseLong(editTextQtdeMin.getText().toString()));
         product.setValorUnitario(Double.parseDouble(editTextValorUnit.getText().toString()));
-        //  product.setImagem(imageViewImage.getImageTintMode());
+
+        imageViewImage.setDrawingCacheEnabled(true);
+        Bitmap scaledBitmap = imageViewImage.getDrawingCache();
+        product.setImagem(bitMapToString(scaledBitmap));
 
     }
 
@@ -165,5 +193,7 @@ public class ProductFormActivity extends AppCompatActivity {
 
     private void bindEditImageView() {
         imageViewImage = (ImageView) findViewById(R.id.imageViewImage);
+        imageViewImage.setImageBitmap(StringToBitMap(product.getImagem()));
     }
+
 }

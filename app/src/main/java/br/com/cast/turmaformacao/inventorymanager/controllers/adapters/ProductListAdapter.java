@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -64,15 +65,16 @@ public class ProductListAdapter extends BaseAdapter {
         TextView textViewDescricao = (TextView) productListItemView.findViewById(R.id.textViewDescricao);
         textViewDescricao.setText(product.getDescricao().toString());
         TextView textViewPreco = (TextView) productListItemView.findViewById(R.id.textViewPreco);
-        textViewPreco.setText(String.valueOf(product.getValorUnitario()));
+        textViewPreco.setText(product.getValorUnitario().toString());
         TextView textViewQtdMin = (TextView) productListItemView.findViewById(R.id.textViewQuantidadeMin);
         textViewQtdMin.setText(product.getQuantidadeMin().toString());
         TextView textViewData = (TextView) productListItemView.findViewById(R.id.textViewData);
         textViewData.setText(product.getDate().toString());
 
-        ImageView imageViewImage = (ImageView) productListItemView.findViewById(R.id.imageViewImage);
+        ImageView imageViewImage = (ImageView) productListItemView.findViewById(R.id.imageView);
+        imageViewImage.setImageBitmap(StringToBitMap(product.getImagem()));
 
-        Bitmap img = null;
+      /*  Bitmap img = null;
 
         try {
             img = new GetImageFromWeb().execute(product.getImage()).get();
@@ -82,9 +84,20 @@ public class ProductListAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        imageViewImage.setImageBitmap(img);
+        imageViewImage.setImageBitmap(img);*/
 
         return productListItemView;
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
     private class GetImageFromWeb extends AsyncTask<String, Void, Bitmap> {

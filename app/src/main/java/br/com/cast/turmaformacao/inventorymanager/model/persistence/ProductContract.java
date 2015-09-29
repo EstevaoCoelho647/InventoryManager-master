@@ -40,7 +40,7 @@ public class ProductContract {
         create.append(DESCRIPTION + " TEXT, ");
         create.append(QUANTIDADE + " INTEGER, ");
         create.append(QTDEMIN + " INTEGER, ");
-        create.append(VALORUNITARIO + " REAL, ");
+        create.append(VALORUNITARIO + " DOUBLE, ");
         create.append(DATE + " INTEGER, ");
         create.append(IMAGE + " TEXT ");
         create.append(" ); ");
@@ -63,7 +63,7 @@ public class ProductContract {
         return values;
     }
 
-    private static Product getProduct(Cursor cursor) {
+    static Product getProduct(Cursor cursor) {
         Product product = new Product();
         if (!cursor.isBeforeFirst() || cursor.moveToNext()) {
             product.setId(cursor.getLong(cursor.getColumnIndex(ProductContract.ID)));
@@ -75,8 +75,6 @@ public class ProductContract {
             product.setValorUnitario(cursor.getDouble(cursor.getColumnIndex(ProductContract.VALORUNITARIO)));
             product.setDate(cursor.getLong(cursor.getColumnIndex(ProductContract.DATE)));
             product.setImagem(cursor.getString(cursor.getColumnIndex(ProductContract.IMAGE)));
-
-
             return product;
         }
         return null;
